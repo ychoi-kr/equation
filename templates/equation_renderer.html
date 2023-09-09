@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equation Share</title>
+    <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <script>
+        function updatePreview() {
+            MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+        }
+    </script>
+</head>
+<body>
+    <textarea id="formula-input" oninput="updatePreview()" style="width: 80vw; height: 100px; padding: 10px; font-size: 16px; box-sizing: border-box;">
+{{ formula }}</textarea>
+    <button onclick="location.href='/'+encodeURIComponent(document.getElementById('formula-input').value)">Generate Link</button>
+    <div id="preview">
+        $$ {{ formula|safe }} $$
+    </div>
+    <script>
+        function updatePreview() {
+            const latex = document.getElementById('formula-input').value;
+            document.getElementById('preview').innerHTML = "$$" + latex + "$$";
+            MathJax.Hub.Queue(["Typeset", MathJax.Hub, "preview"]);
+        }
+    </script>
+    <div style="text-align: right; margin-right: 10px;">
+        <a href="https://wikidocs.net/215985" target="_blank" rel="noopener noreferrer">How to use | 사용법</a>
+    </div>
+</body>
+</html>
